@@ -22,9 +22,11 @@ const UserTable = ({ users, onRemove, onRemoveAll }) => (
           <P>IP address</P>
         </Col>
         <Col xs={2}>
-          <Button margin="0" type="button" onClick={onRemoveAll}>
-            Remove All
-          </Button>
+          {users.length > 0 && (
+            <Button margin="0" type="button" onClick={onRemoveAll}>
+              Remove All
+            </Button>
+          )}
         </Col>
       </Row>
     </Header>
