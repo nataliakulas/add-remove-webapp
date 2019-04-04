@@ -15,7 +15,7 @@ const InputWrapper = ({
   error
 }) => (
   <Wrapper>
-    <Label>{label}</Label>
+    <Label>{id || label}</Label>
     <Input
       id={id}
       type={type || "text"}

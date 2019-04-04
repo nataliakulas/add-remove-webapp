@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import { Container, Row, Col } from "react-grid-system";
 import styled from "styled-components";
 
@@ -6,26 +6,65 @@ import color from "./shared/colors";
 
 import GlobalStyle from "./components/Global";
 import Input from "./components/Input";
+import Button from "./components/Button";
 
-const App = () => (
-  <Background>
-    <GlobalStyle />
-    <Container>
-      <H1>Crypto Users</H1>
-      <Row>
-        <Col xs={5}>
-          <Form>
-            <Input
-              label="Nickname"
-              placeholder="Enter nickname"
-              error="Error"
-            />
-          </Form>
-        </Col>
-      </Row>
-    </Container>
-  </Background>
-);
+class App extends Component {
+  state = {
+    nickname: "",
+    email: "",
+    ip: ""
+  };
+
+  handleChange = e => {
+    const { id, value } = e.target;
+
+    const propById = (propertyName, value) => () => ({
+      [propertyName]: value
+    });
+
+    this.setState(propById(id, value));
+  };
+
+  render() {
+    const { nickname, email, ip } = this.state;
+
+    return (
+      <Background>
+        <GlobalStyle />
+        <Container>
+          <H1>Crypto Users</H1>
+          <Row>
+            <Col xs={5}>
+              <Form>
+                <Input
+                  id="nickname"
+                  placeholder="Enter nickname"
+                  value={nickname}
+                  onChange={e => this.handleChange(e)}
+                />
+                <Input
+                  id="email"
+                  label="E-mail"
+                  placeholder="Enter e-mail"
+                  value={email}
+                  onChange={e => this.handleChange(e)}
+                />
+                <Input
+                  id="ip"
+                  label="IP address"
+                  placeholder="Enter IP address"
+                  value={ip}
+                  onChange={e => this.handleChange(e)}
+                />
+                <Button type="submit">Add user</Button>
+              </Form>
+            </Col>
+          </Row>
+        </Container>
+      </Background>
+    );
+  }
+}
 
 export default App;
 
