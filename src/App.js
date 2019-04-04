@@ -39,9 +39,14 @@ class App extends Component {
     }));
   };
 
+  handleRemove = timestamp =>
+    this.setState(prevState => ({
+      users: prevState.users.filter(user => user.timestamp !== timestamp)
+    }));
+
   render() {
     const { nickname, email, ip, users } = this.state;
-
+    console.log(this.state.users);
     return (
       <Background>
         <GlobalStyle />
@@ -83,19 +88,24 @@ class App extends Component {
               </Row>
             </Header>
             <Body>
-              {users.map(user => (
-                <Row key={user.timestamp}>
+              {users.map(({ timestamp, nickname, email, ip }) => (
+                <Row key={timestamp}>
                   <Col xs={4}>
-                    <P>{user.nickname}</P>
+                    <P>{nickname}</P>
                   </Col>
                   <Col xs={4}>
-                    <P>{user.email}</P>
+                    <P>{email}</P>
                   </Col>
                   <Col xs={3}>
-                    <P>{user.ip}</P>
+                    <P>{ip}</P>
                   </Col>
                   <Col xs={1}>
-                    <RoundButton type="button">&#10060;</RoundButton>
+                    <RoundButton
+                      type="button"
+                      onClick={() => this.handleRemove(timestamp)}
+                    >
+                      &#10060;
+                    </RoundButton>
                   </Col>
                 </Row>
               ))}
