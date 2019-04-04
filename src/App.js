@@ -93,6 +93,8 @@ class App extends Component {
 
   render() {
     const { nickname, email, ip, users, modal, user } = this.state;
+    const disabled = !nickname.value || !email.value || !ip.value;
+
     console.log(nickname, email, ip);
     return (
       <Background>
@@ -130,6 +132,7 @@ class App extends Component {
             onChange={e => this.handleChange(e)}
             onFocus={e => this.handleFocus(e)}
             onBlur={e => this.handleBlur(e)}
+            disabled={disabled}
           />
           <UserTable
             users={users}

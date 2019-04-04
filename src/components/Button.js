@@ -18,11 +18,15 @@ const Button = styled.button`
   padding: 10px 20px;
   cursor: pointer;
 
-  &:hover {
+  &:hover:not(:disabled) {
     color: ${({ outlined }) => (outlined ? color.lapis : color.white)};
     border-color: ${color.lapis};
     background-color: ${({ outlined }) =>
       outlined ? "transparent" : color.lapis};
+  }
+
+  &:disabled {
+    cursor: not-allowed;
   }
 `;
 

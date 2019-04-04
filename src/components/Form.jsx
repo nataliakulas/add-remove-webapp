@@ -14,7 +14,8 @@ const AddForm = ({
   onChange,
   onSubmit,
   onFocus,
-  onBlur
+  onBlur,
+  disabled
 }) => (
   <Row>
     <Col xs={5}>
@@ -48,7 +49,12 @@ const AddForm = ({
           onFocus={e => onFocus(e)}
           onBlur={e => onBlur(e)}
         />
-        <Button type="submit">Add user</Button>
+        <Button
+          type="submit"
+          disabled={disabled}
+        >
+          Add user
+        </Button>
       </Form>
     </Col>
   </Row>
