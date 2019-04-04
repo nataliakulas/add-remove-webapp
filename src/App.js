@@ -19,7 +19,8 @@ class App extends Component {
     email: "",
     ip: "",
     users: [],
-    modalOpen: false
+    modal: "",
+    user: {}
   };
 
   handleChange = e => {
@@ -44,34 +45,51 @@ class App extends Component {
     }));
   };
 
-  handleRemove = timestamp =>
-    this.setState(prevState => ({
-      users: prevState.users.filter(user => user.timestamp !== timestamp)
-    }));
-
-  handleRemoveAll = () => this.setState({ users: [] });
-
-  handleConfirm = () => {
-    this.setState({ modalOpen: true });
+  handleConfirm = (type, user) => {
+    switch (type) {
+      case "all":
+        return this.setState({ modal: type });
+      case "user":
+        return this.setState({ modal: type, user });
+      default:
+        return;
+    }
   };
 
-  handleClose = () => this.setState({ modalOpen: false });
+  handleRemove = (type, timestamp) => {
+    switch (type) {
+      case "all":
+        return this.setState({ users: [], modal: "" });
+      case "user":
+        return this.setState(prevState => ({
+          users: prevState.users.filter(user => user.timestamp !== timestamp),
+          modal: "",
+          user: {}
+        }));
+      default:
+        return null;
+    }
+  };
+
+  handleClose = () => this.setState({ modal: "", user: {} });
 
   render() {
-    const { nickname, email, ip, users, modalOpen } = this.state;
+    const { nickname, email, ip, users, modal, user } = this.state;
 
     return (
       <Background>
         <GlobalStyle />
-        <Modal
-          open={modalOpen}
-          title="Title"
-          onClose={() => this.handleClose()}
-        >
-          Are you sure, that you want to remove all users?
+        <Modal open={modal} title="Title" onClose={() => this.handleClose()}>
+          {modal === "all" &&
+            "Are you sure, that you want to remove all users?"}
+          {modal === "user" &&
+            `Are you sure, that you want to remove user ${user.nickname}?`}
           <Row>
             <Col xs={4} offset={{ xs: 1 }}>
-              <Button type="button" onClick={() => this.handleRemoveAll()}>
+              <Button
+                type="button"
+                onClick={() => this.handleRemove(modal, user.timestamp)}
+              >
                 Yes
               </Button>
             </Col>
@@ -93,8 +111,8 @@ class App extends Component {
           />
           <UserTable
             users={users}
-            onRemove={user => this.handleRemove(user)}
-            onRemoveAll={() => this.handleConfirm()}
+            onRemove={user => this.handleConfirm("user", user)}
+            onRemoveAll={() => this.handleConfirm("all")}
           />
         </Container>
       </Background>

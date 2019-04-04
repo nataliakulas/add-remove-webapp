@@ -44,9 +44,10 @@ const UserTable = ({ users, onRemove, onRemoveAll }) => (
           </Col>
           <Col xs={1} offset={{ xs: 1 }}>
             <RoundButton
+              outlined
               type="button"
               margin="10px auto"
-              onClick={() => onRemove(timestamp)}
+              onClick={() => onRemove({ nickname, timestamp })}
             >
               &#10060;
             </RoundButton>
