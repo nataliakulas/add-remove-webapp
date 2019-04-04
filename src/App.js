@@ -10,6 +10,7 @@ import Button from "./components/Button";
 
 class App extends Component {
   state = {
+    timestamp: "",
     nickname: "",
     email: "",
     ip: "",
@@ -31,12 +32,15 @@ class App extends Component {
 
     e.preventDefault();
     this.setState(prevState => ({
-      users: [...prevState.users, { nickname, email, ip }]
+      users: [
+        ...prevState.users,
+        { timestamp: new Date().getUTCMilliseconds(), nickname, email, ip }
+      ]
     }));
   };
 
   render() {
-    const { nickname, email, ip } = this.state;
+    const { nickname, email, ip, users } = this.state;
 
     return (
       <Background>
@@ -70,6 +74,25 @@ class App extends Component {
               </Form>
             </Col>
           </Row>
+          <Table>
+            <Header>
+              <Row>
+                <Col xs={4}>Nickname</Col>
+                <Col xs={4}>E-mail</Col>
+                <Col xs={4}>IP address</Col>
+              </Row>
+            </Header>
+            <Body>
+              {users.map(user => (
+                <Row key={user.timestamp}>
+                  <Col xs={4}>{user.nickname}</Col>
+                  <Col xs={4}>{user.email}</Col>
+                  <Col xs={4}>{user.ip}</Col>
+                </Row>
+              ))}
+              {users.length === 0 && <Placeholder>Add some users!</Placeholder>}
+            </Body>
+          </Table>
         </Container>
       </Background>
     );
@@ -89,9 +112,33 @@ const H1 = styled.h1`
   color: ${color.blue};
 `;
 
-const Form = styled.form`
+const Placeholder = styled.p`
+  margin: 100px auto;
+`;
+
+const PanelMixin = `
   background-color: ${color.white};
   border-radius: 4px;
   padding: 20px;
   box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.25);
+`;
+
+const Form = styled.form`
+  ${PanelMixin};
+`;
+
+const Table = styled.div`
+  ${PanelMixin};
+  margin-top: 50px;
+`;
+
+const Header = styled.div`
+  color: ${color.blue};
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: center;
+`;
+
+const Body = styled.div`
+  text-align: center;
 `;
