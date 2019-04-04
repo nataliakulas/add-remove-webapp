@@ -12,7 +12,8 @@ class App extends Component {
   state = {
     nickname: "",
     email: "",
-    ip: ""
+    ip: "",
+    users: []
   };
 
   handleChange = e => {
@@ -25,6 +26,15 @@ class App extends Component {
     this.setState(propById(id, value));
   };
 
+  handleSubmit = e => {
+    const { nickname, email, ip } = this.state;
+
+    e.preventDefault();
+    this.setState(prevState => ({
+      users: [...prevState.users, { nickname, email, ip }]
+    }));
+  };
+
   render() {
     const { nickname, email, ip } = this.state;
 
@@ -35,7 +45,7 @@ class App extends Component {
           <H1>Crypto Users</H1>
           <Row>
             <Col xs={5}>
-              <Form>
+              <Form onSubmit={this.handleSubmit}>
                 <Input
                   id="nickname"
                   placeholder="Enter nickname"
