@@ -24,7 +24,7 @@ const GlobalStyle = createGlobalStyle`
   }
   
   ::selection {
-    color: ${color.white};
+    color: ${color.snow};
     background-color: ${color.lapis};
   }
 `;

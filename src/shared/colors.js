@@ -3,5 +3,6 @@ export default {
   red: "#A4031F",
   blue: "#86BBD8",
   lapis: "#336699",
-  white: "#FBF5F3"
+  snow: "#FBF5F3",
+  white: "#FDFBFA"
 };
