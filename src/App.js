@@ -79,15 +79,24 @@ class App extends Component {
               <Row>
                 <Col xs={4}>Nickname</Col>
                 <Col xs={4}>E-mail</Col>
-                <Col xs={4}>IP address</Col>
+                <Col xs={3}>IP address</Col>
               </Row>
             </Header>
             <Body>
               {users.map(user => (
                 <Row key={user.timestamp}>
-                  <Col xs={4}>{user.nickname}</Col>
-                  <Col xs={4}>{user.email}</Col>
-                  <Col xs={4}>{user.ip}</Col>
+                  <Col xs={4}>
+                    <P>{user.nickname}</P>
+                  </Col>
+                  <Col xs={4}>
+                    <P>{user.email}</P>
+                  </Col>
+                  <Col xs={3}>
+                    <P>{user.ip}</P>
+                  </Col>
+                  <Col xs={1}>
+                    <RoundButton type="button">&#10060;</RoundButton>
+                  </Col>
                 </Row>
               ))}
               {users.length === 0 && <Placeholder>Add some users!</Placeholder>}
@@ -112,7 +121,11 @@ const H1 = styled.h1`
   color: ${color.blue};
 `;
 
-const Placeholder = styled.p`
+const P = styled.p`
+  text-align: center;
+`;
+
+const Placeholder = styled(P)`
   margin: 100px auto;
 `;
 
@@ -137,8 +150,17 @@ const Header = styled.div`
   font-weight: bold;
   text-transform: uppercase;
   text-align: center;
+  border-bottom: 1px solid ${color.blue};
+  padding-bottom: 20px;
 `;
 
 const Body = styled.div`
-  text-align: center;
+  padding-top: 20px;
+`;
+
+const RoundButton = styled(Button)`
+  width: 30px;
+  height: 30px;
+  margin: 10px auto;
+  padding: 0;
 `;

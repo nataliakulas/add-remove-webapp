@@ -21,6 +21,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     font-family: "Lato", sans-serif;
     color: ${color.black};
+    line-height: 20px;
   }
   
   ::selection {
