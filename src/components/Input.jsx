@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import color from "../shared/colors";
+import { BoldBlueMixin } from "../shared/mixins";
 
 const InputWrapper = ({
   id,
@@ -39,9 +40,8 @@ const Wrapper = styled.div`
 `;
 
 const Label = styled.label`
-  color: ${color.blue};
-  font-weight: bold;
-  text-transform: uppercase;
+  ${BoldBlueMixin};
+
   margin-bottom: 10px;
 `;
 
