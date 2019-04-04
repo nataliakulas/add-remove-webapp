@@ -13,7 +13,7 @@ const Button = styled.button`
   background-color: ${color.blue};
   border-radius: 22px;
 
-  margin: 20px auto;
+  margin: ${({ margin }) => margin || "20px auto"};
   padding: 10px 20px;
   cursor: pointer;
 

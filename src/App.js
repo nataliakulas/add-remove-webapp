@@ -46,6 +46,8 @@ class App extends Component {
       users: prevState.users.filter(user => user.timestamp !== timestamp)
     }));
 
+  handleRemoveAll = () => this.setState({ users: [] });
+
   render() {
     const { nickname, email, ip, users } = this.state;
 
@@ -61,7 +63,11 @@ class App extends Component {
             onSubmit={e => this.handleSubmit(e)}
             onChange={e => this.handleChange(e)}
           />
-          <UserTable users={users} onRemove={user => this.handleRemove(user)} />
+          <UserTable
+            users={users}
+            onRemove={user => this.handleRemove(user)}
+            onRemoveAll={() => this.handleRemoveAll()}
+          />
         </Container>
       </Background>
     );
