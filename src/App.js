@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container } from "react-grid-system";
+import { Container, Row, Col } from "react-grid-system";
 import styled from "styled-components";
 
 import color from "./shared/colors";
@@ -9,6 +9,8 @@ import { H1 } from "./components/Fonts";
 
 import AddForm from "./components/Form";
 import UserTable from "./components/Table";
+import Modal from "./components/Modal";
+import Button from "./components/Button";
 
 class App extends Component {
   state = {
@@ -16,7 +18,8 @@ class App extends Component {
     nickname: "",
     email: "",
     ip: "",
-    users: []
+    users: [],
+    modalOpen: false
   };
 
   handleChange = e => {
@@ -48,12 +51,37 @@ class App extends Component {
 
   handleRemoveAll = () => this.setState({ users: [] });
 
+  handleConfirm = () => {
+    this.setState({ modalOpen: true });
+  };
+
+  handleClose = () => this.setState({ modalOpen: false });
+
   render() {
-    const { nickname, email, ip, users } = this.state;
+    const { nickname, email, ip, users, modalOpen } = this.state;
 
     return (
       <Background>
         <GlobalStyle />
+        <Modal
+          open={modalOpen}
+          title="Title"
+          onClose={() => this.handleClose()}
+        >
+          Are you sure, that you want to remove all users?
+          <Row>
+            <Col xs={4} offset={{ xs: 1 }}>
+              <Button type="button" onClick={() => this.handleRemoveAll()}>
+                Yes
+              </Button>
+            </Col>
+            <Col xs={4} offset={{ xs: 2 }}>
+              <Button outlined type="button" onClick={() => this.handleClose()}>
+                No
+              </Button>
+            </Col>
+          </Row>
+        </Modal>
         <Container>
           <H1>Crypto Users</H1>
           <AddForm
@@ -66,7 +94,7 @@ class App extends Component {
           <UserTable
             users={users}
             onRemove={user => this.handleRemove(user)}
-            onRemoveAll={() => this.handleRemoveAll()}
+            onRemoveAll={() => this.handleConfirm()}
           />
         </Container>
       </Background>

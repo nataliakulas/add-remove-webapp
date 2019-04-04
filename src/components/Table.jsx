@@ -5,7 +5,7 @@ import styled from "styled-components";
 import color from "../shared/colors";
 import { PanelMixin, BoldBlueMixin } from "../shared/mixins";
 
-import Button from "./Button";
+import Button, { RoundButton } from "./Button";
 import { P } from "./Fonts";
 
 const UserTable = ({ users, onRemove, onRemoveAll }) => (
@@ -43,7 +43,11 @@ const UserTable = ({ users, onRemove, onRemoveAll }) => (
             <P>{ip}</P>
           </Col>
           <Col xs={1} offset={{ xs: 1 }}>
-            <RoundButton type="button" onClick={() => onRemove(timestamp)}>
+            <RoundButton
+              type="button"
+              margin="10px auto"
+              onClick={() => onRemove(timestamp)}
+            >
               &#10060;
             </RoundButton>
           </Col>
@@ -79,11 +83,4 @@ const Header = styled.div`
 
 const Body = styled.div`
   padding-top: 20px;
-`;
-
-const RoundButton = styled(Button)`
-  width: 30px;
-  height: 30px;
-  margin: 10px auto;
-  padding: 0;
 `;

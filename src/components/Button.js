@@ -6,11 +6,12 @@ const Button = styled.button`
   width: 100%;
 
   font-family: "Lato", sans-serif;
-  color: ${color.white};
+  color: ${({ outlined }) => (outlined ? color.blue : color.white)};
   font-weight: bold;
 
-  border: 1px solid ${color.blue};
-  background-color: ${color.blue};
+  border: 2px solid ${color.blue};
+  background-color: ${({ outlined }) =>
+    outlined ? "transparent" : color.blue};
   border-radius: 22px;
 
   margin: ${({ margin }) => margin || "20px auto"};
@@ -18,9 +19,17 @@ const Button = styled.button`
   cursor: pointer;
 
   &:hover {
+    color: ${({ outlined }) => (outlined ? color.lapis : color.white)};
     border-color: ${color.lapis};
-    background-color: ${color.lapis};
+    background-color: ${({ outlined }) =>
+      outlined ? "transparent" : color.lapis};
   }
 `;
 
 export default Button;
+
+export const RoundButton = styled(Button)`
+  width: 30px;
+  height: 30px;
+  padding: 0;
+`;
