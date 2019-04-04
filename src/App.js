@@ -25,8 +25,6 @@ class App extends Component {
   };
 
   handleSubmit = newUser => {
-    console.log(newUser);
-
     this.setState(prevState => ({
       users: [...prevState.users, newUser]
     }));

@@ -13,7 +13,6 @@ export const useInput = value => {
   }
 
   function handleFocus() {
-    console.log("focus");
     setError("");
   }
 
