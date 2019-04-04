@@ -1,8 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import color from "../shared/colors";
 import { BoldBlueMixin } from "../shared/mixins";
+
+export const useInput = value => {
+  const [inputValue, setValue] = useState(value);
+  const [inputError, setError] = useState("");
+
+  function handleChange(e) {
+    setValue(e.target.value);
+  }
+
+  function handleFocus() {
+    console.log("focus");
+    setError("");
+  }
+
+  function handleBlur() {
+    if (inputValue.length === 0) {
+      setError("Field cannot be empty");
+    }
+  }
+
+  return {
+    value: inputValue,
+    error: inputError,
+    onChange: handleChange,
+    onFocus: handleFocus,
+    onBlur: handleBlur
+  };
+};
 
 const InputWrapper = ({
   id,

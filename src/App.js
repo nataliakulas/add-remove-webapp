@@ -12,62 +12,31 @@ import UserTable from "./components/Table";
 import Modal from "./components/Modal";
 import Button from "./components/Button";
 
-const valueById = (name, value) => () => ({
-  [name]: { value }
-});
-
-const errorById = (name, error) => () => ({
-  [name]: { error }
-});
+const modal_type = {
+  ALL: "all",
+  USER: "user"
+};
 
 class App extends Component {
   state = {
-    timestamp: "",
-    nickname: { value: "", error: "" },
-    email: { value: "", error: "" },
-    ip: { value: "", error: "" },
     users: [],
     modal: "",
     user: {}
   };
 
-  handleChange = e => {
-    const { id, value } = e.target;
+  handleSubmit = newUser => {
+    console.log(newUser);
 
-    this.setState(valueById(id, value));
-  };
-
-  handleFocus = e => {
-    const { id } = e.target;
-
-    this.setState(errorById(id, ""));
-  };
-
-  handleBlur = e => {
-    const { id, value } = e.target;
-
-    if (value.length === 0) {
-      this.setState(errorById(id, "Field cannot be empty"));
-    }
-  };
-
-  handleSubmit = e => {
-    const { nickname, email, ip } = this.state;
-
-    e.preventDefault();
     this.setState(prevState => ({
-      users: [
-        ...prevState.users,
-        { timestamp: new Date().getUTCMilliseconds(), nickname, email, ip }
-      ]
+      users: [...prevState.users, newUser]
     }));
   };
 
   handleConfirm = (type, user) => {
     switch (type) {
-      case "all":
+      case modal_type.ALL:
         return this.setState({ modal: type });
-      case "user":
+      case modal_type.USER:
         return this.setState({ modal: type, user });
       default:
         return;
@@ -76,9 +45,9 @@ class App extends Component {
 
   handleRemove = (type, timestamp) => {
     switch (type) {
-      case "all":
+      case modal_type.ALL:
         return this.setState({ users: [], modal: "" });
-      case "user":
+      case modal_type.USER:
         return this.setState(prevState => ({
           users: prevState.users.filter(user => user.timestamp !== timestamp),
           modal: "",
@@ -92,20 +61,16 @@ class App extends Component {
   handleClose = () => this.setState({ modal: "", user: {} });
 
   render() {
-    const { nickname, email, ip, users, modal, user } = this.state;
-    const disabled = !nickname.value || !email.value || !ip.value;
+    const { users, modal, user } = this.state;
 
-    console.log(nickname, email, ip);
     return (
       <Background>
         <GlobalStyle />
         <Modal open={modal} title="Title" onClose={() => this.handleClose()}>
-          {modal === "all" &&
+          {modal === modal_type.ALL &&
             "Are you sure, that you want to remove all users?"}
-          {modal === "user" &&
-            `Are you sure, that you want to remove user ${
-              user.nickname.value
-            }?`}
+          {modal === modal_type.USER &&
+            `Are you sure, that you want to remove user ${user.nickname}?`}
           <Row>
             <Col xs={4} offset={{ xs: 1 }}>
               <Button
@@ -124,20 +89,11 @@ class App extends Component {
         </Modal>
         <Container>
           <H1>Crypto Users</H1>
-          <AddForm
-            nickname={nickname}
-            email={email}
-            ip={ip}
-            onSubmit={e => this.handleSubmit(e)}
-            onChange={e => this.handleChange(e)}
-            onFocus={e => this.handleFocus(e)}
-            onBlur={e => this.handleBlur(e)}
-            disabled={disabled}
-          />
+          <AddForm onSubmit={e => this.handleSubmit(e)} />
           <UserTable
             users={users}
-            onRemove={user => this.handleConfirm("user", user)}
-            onRemoveAll={() => this.handleConfirm("all")}
+            onRemove={user => this.handleConfirm(modal_type.USER, user)}
+            onRemoveAll={() => this.handleConfirm(modal_type.ALL)}
           />
         </Container>
       </Background>
