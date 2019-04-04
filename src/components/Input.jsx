@@ -68,7 +68,7 @@ const Input = styled.input`
 
 const Error = styled.p`
   position: absolute;
-  bottom: -15px;
+  bottom: -20px;
   right: 0;
   color: ${color.red};
   font-size: 12px;

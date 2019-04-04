@@ -12,12 +12,20 @@ import UserTable from "./components/Table";
 import Modal from "./components/Modal";
 import Button from "./components/Button";
 
+const valueById = (name, value) => () => ({
+  [name]: { value }
+});
+
+const errorById = (name, error) => () => ({
+  [name]: { error }
+});
+
 class App extends Component {
   state = {
     timestamp: "",
-    nickname: "",
-    email: "",
-    ip: "",
+    nickname: { value: "", error: "" },
+    email: { value: "", error: "" },
+    ip: { value: "", error: "" },
     users: [],
     modal: "",
     user: {}
@@ -26,11 +34,21 @@ class App extends Component {
   handleChange = e => {
     const { id, value } = e.target;
 
-    const propById = (propertyName, value) => () => ({
-      [propertyName]: value
-    });
+    this.setState(valueById(id, value));
+  };
 
-    this.setState(propById(id, value));
+  handleFocus = e => {
+    const { id } = e.target;
+
+    this.setState(errorById(id, ""));
+  };
+
+  handleBlur = e => {
+    const { id, value } = e.target;
+
+    if (value.length === 0) {
+      this.setState(errorById(id, "Field cannot be empty"));
+    }
   };
 
   handleSubmit = e => {
@@ -75,7 +93,7 @@ class App extends Component {
 
   render() {
     const { nickname, email, ip, users, modal, user } = this.state;
-
+    console.log(nickname, email, ip);
     return (
       <Background>
         <GlobalStyle />
@@ -83,7 +101,9 @@ class App extends Component {
           {modal === "all" &&
             "Are you sure, that you want to remove all users?"}
           {modal === "user" &&
-            `Are you sure, that you want to remove user ${user.nickname}?`}
+            `Are you sure, that you want to remove user ${
+              user.nickname.value
+            }?`}
           <Row>
             <Col xs={4} offset={{ xs: 1 }}>
               <Button
@@ -108,6 +128,8 @@ class App extends Component {
             ip={ip}
             onSubmit={e => this.handleSubmit(e)}
             onChange={e => this.handleChange(e)}
+            onFocus={e => this.handleFocus(e)}
+            onBlur={e => this.handleBlur(e)}
           />
           <UserTable
             users={users}

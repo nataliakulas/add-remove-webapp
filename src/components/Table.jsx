@@ -34,13 +34,13 @@ const UserTable = ({ users, onRemove, onRemoveAll }) => (
       {users.map(({ timestamp, nickname, email, ip }) => (
         <Row key={timestamp}>
           <Col xs={4}>
-            <P>{nickname}</P>
+            <P>{nickname.value}</P>
           </Col>
           <Col xs={3}>
-            <P>{email}</P>
+            <P>{email.value}</P>
           </Col>
           <Col xs={3}>
-            <P>{ip}</P>
+            <P>{ip.value}</P>
           </Col>
           <Col xs={1} offset={{ xs: 1 }}>
             <RoundButton
