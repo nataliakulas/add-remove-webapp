@@ -49,7 +49,9 @@ const UserTable = ({ users, onRemove, onRemoveAll }) => (
               margin="10px auto"
               onClick={() => onRemove({ nickname, timestamp })}
             >
-              &#10060;
+              <span role="img" aria-label="remove">
+                &#10060;
+              </span>
             </RoundButton>
           </Col>
         </Row>

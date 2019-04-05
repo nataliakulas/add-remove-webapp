@@ -18,7 +18,9 @@ const Modal = ({ open, title, onClose, children }) => {
           <Header>
             <H2>{title}</H2>
             <RoundButton type="button" margin="0" onClick={onClose}>
-              &#10060;
+              <span role="img" aria-label="remove">
+                &#10060;
+              </span>
             </RoundButton>
           </Header>
           <Body>{children}</Body>
