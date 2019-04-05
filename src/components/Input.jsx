@@ -4,8 +4,8 @@ import styled from "styled-components";
 import color from "../shared/colors";
 import { BoldBlueMixin } from "../shared/mixins";
 
-export const useInput = value => {
-  const [inputValue, setValue] = useState(value);
+export const useInput = () => {
+  const [inputValue, setValue] = useState("");
   const [inputError, setError] = useState("");
 
   function handleChange(e) {
@@ -16,10 +16,34 @@ export const useInput = value => {
     setError("");
   }
 
-  function handleBlur() {
+  function handleBlur(e) {
+    const { id, value } = e.target;
+
     if (inputValue.length === 0) {
       setError("Field cannot be empty");
+    } else {
+      if (id === "email") {
+        const re = /^[\w._-]+[+]?[\w._-]+@[\w.-]+\.[a-zA-Z]{2,6}$/;
+
+        if (!re.test(value))
+          return setError("Please enter valid e-mail address");
+      } else if (id === "ip") {
+        const re = /^(([1-9]?\d|1\d\d|2[0-5][0-5]|2[0-4]\d)\.){3}([1-9]?\d|1\d\d|2[0-5][0-5]|2[0-4]\d)$/;
+
+        if (!re.test(value)) return setError("Please enter valid IP number");
+      } else {
+        console.log("nickname field");
+      }
     }
+  }
+
+  function handleError(error) {
+    setError(error);
+  }
+
+  function handleReset() {
+    setValue("");
+    setError("");
   }
 
   return {
@@ -27,7 +51,9 @@ export const useInput = value => {
     error: inputError,
     onChange: handleChange,
     onFocus: handleFocus,
-    onBlur: handleBlur
+    onBlur: handleBlur,
+    onError: handleError,
+    onReset: handleReset
   };
 };
 

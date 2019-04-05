@@ -87,7 +87,7 @@ class App extends Component {
         </Modal>
         <Container>
           <H1>Crypto Users</H1>
-          <AddForm onSubmit={e => this.handleSubmit(e)} />
+          <AddForm users={users} onSubmit={e => this.handleSubmit(e)} />
           <UserTable
             users={users}
             onRemove={user => this.handleConfirm(modal_type.USER, user)}
