@@ -60,7 +60,7 @@ class App extends Component {
 
   render() {
     const { users, modal, user } = this.state;
-
+console.log(user)
     return (
       <Background>
         <GlobalStyle />

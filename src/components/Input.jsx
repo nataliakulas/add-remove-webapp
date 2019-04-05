@@ -4,7 +4,7 @@ import styled from "styled-components";
 import color from "../shared/colors";
 import { BoldBlueMixin } from "../shared/mixins";
 
-export const useInput = () => {
+export const useInput = users => {
   const [inputValue, setValue] = useState("");
   const [inputError, setError] = useState("");
 
@@ -31,14 +31,19 @@ export const useInput = () => {
         const re = /^(([1-9]?\d|1\d\d|2[0-5][0-5]|2[0-4]\d)\.){3}([1-9]?\d|1\d\d|2[0-5][0-5]|2[0-4]\d)$/;
 
         if (!re.test(value)) return setError("Please enter valid IP number");
-      } else {
-        console.log("nickname field");
       }
-    }
-  }
 
-  function handleError(error) {
-    setError(error);
+      users &&
+        users.map(user => {
+          if (id === "nickname" && user.nickname === value) {
+            setError("This nickname already exists");
+          }
+          if (id === "email" && user.email === value) {
+            setError("This e-mail already exists");
+          }
+          return user;
+        });
+    }
   }
 
   function handleReset() {
@@ -52,7 +57,6 @@ export const useInput = () => {
     onChange: handleChange,
     onFocus: handleFocus,
     onBlur: handleBlur,
-    onError: handleError,
     onReset: handleReset
   };
 };

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Row, Col } from "react-grid-system";
 
 import { PanelMixin } from "../shared/mixins";
@@ -8,21 +8,9 @@ import Button from "./Button";
 import styled from "styled-components";
 
 const AddForm = ({ users, onSubmit }) => {
-  const nicknameInput = useInput();
-  const emailInput = useInput();
+  const nicknameInput = useInput(users);
+  const emailInput = useInput(users);
   const ipInput = useInput();
-
-  useEffect(() => {
-    users.map(user => {
-      if (user.nickname === nicknameInput.value) {
-        nicknameInput.onError("This nickname already exists");
-      }
-      if (user.email === emailInput.value) {
-        emailInput.onError("This e-mail already exists");
-      }
-      return user;
-    });
-  });
 
   const handleSubmit = e => {
     e.preventDefault();
