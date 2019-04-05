@@ -168,6 +168,10 @@ const Body = styled.div`
 const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+
+  @media (min-width: 768px) {
+    justify-content: center;
+  }
 `;
