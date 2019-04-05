@@ -12,16 +12,16 @@ const UserTable = ({ users, onRemove, onRemoveAll }) => (
   <Table>
     <Header>
       <Row>
-        <Col xs={4}>
+        <Col sm={3} lg={4}>
           <P>Nickname</P>
         </Col>
-        <Col xs={3}>
+        <Col sm={3}>
           <P>E-mail</P>
         </Col>
-        <Col xs={3}>
+        <Col sm={3}>
           <P>IP address</P>
         </Col>
-        <Col xs={2}>
+        <Col sm={3} lg={2}>
           {users.length > 0 && (
             <Button margin="0" type="button" onClick={onRemoveAll}>
               Remove All
@@ -33,16 +33,16 @@ const UserTable = ({ users, onRemove, onRemoveAll }) => (
     <Body>
       {users.map(({ timestamp, nickname, email, ip }) => (
         <Row key={timestamp}>
-          <Col xs={4}>
+          <Col sm={3} lg={4}>
             <P>{nickname}</P>
           </Col>
-          <Col xs={3}>
+          <Col sm={3}>
             <P>{email}</P>
           </Col>
-          <Col xs={3}>
+          <Col sm={3}>
             <P>{ip}</P>
           </Col>
-          <Col xs={1} offset={{ xs: 1 }}>
+          <Col sm={1} offset={{ sm: 1 }}>
             <RoundButton
               outlined
               type="button"

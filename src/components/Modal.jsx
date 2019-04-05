@@ -45,7 +45,7 @@ const Wrapper = styled.div`
 `;
 
 const Content = styled.div`
-  width: 400px;
+  width: 290px;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -53,6 +53,10 @@ const Content = styled.div`
   border-radius: 4px;
   background-color: ${color.snow};
   padding: 20px 30px;
+
+  @media (min-width: 768px) {
+    width: 400px;
+  }
 `;
 
 const Header = styled.div`

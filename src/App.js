@@ -60,7 +60,7 @@ class App extends Component {
 
   render() {
     const { users, modal, user } = this.state;
-console.log(user)
+
     return (
       <Background>
         <GlobalStyle />
@@ -70,7 +70,7 @@ console.log(user)
           {modal === modal_type.USER &&
             `Are you sure, that you want to remove user ${user.nickname}?`}
           <Row>
-            <Col xs={4} offset={{ xs: 1 }}>
+            <Col xs={6} sm={4} offset={{ sm: 1 }}>
               <Button
                 type="button"
                 onClick={() => this.handleRemove(modal, user.timestamp)}
@@ -78,7 +78,7 @@ console.log(user)
                 Yes
               </Button>
             </Col>
-            <Col xs={4} offset={{ xs: 2 }}>
+            <Col xs={6} sm={4} offset={{ sm: 2 }}>
               <Button outlined type="button" onClick={() => this.handleClose()}>
                 No
               </Button>

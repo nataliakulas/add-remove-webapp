@@ -39,7 +39,7 @@ const AddForm = ({ users, onSubmit }) => {
 
   return (
     <Row>
-      <Col xs={5}>
+      <Col sm={6} md={5}>
         <Form onSubmit={e => handleSubmit(e)}>
           <Input
             id="nickname"
