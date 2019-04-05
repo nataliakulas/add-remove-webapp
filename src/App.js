@@ -3,19 +3,15 @@ import { Container, Row, Col } from "react-grid-system";
 import styled from "styled-components";
 
 import color from "./shared/colors";
+import { modal_type } from "./shared/types";
 
 import GlobalStyle from "./components/Global";
 import { H1 } from "./components/Fonts";
 
-import AddForm from "./components/Form";
-import UserTable from "./components/Table";
+import AddForm from "./containers/Form";
+import UserTable from "./containers/Table";
 import Modal from "./components/Modal";
 import Button from "./components/Button";
-
-const modal_type = {
-  ALL: "all",
-  USER: "user"
-};
 
 class App extends Component {
   state = {
@@ -64,7 +60,7 @@ class App extends Component {
     return (
       <Background>
         <GlobalStyle />
-        <Modal open={modal} title="Title" onClose={() => this.handleClose()}>
+        <Modal open={modal} title="Confirm" onClose={() => this.handleClose()}>
           {modal === modal_type.ALL &&
             "Are you sure, that you want to remove all users?"}
           {modal === modal_type.USER &&

@@ -2,9 +2,10 @@ import React from "react";
 import { Row, Col } from "react-grid-system";
 
 import { PanelMixin } from "../shared/mixins";
+import { field_type } from "../shared/types";
 
-import Input, { useInput } from "./Input";
-import Button from "./Button";
+import Input, { useInput } from "../components/Input";
+import Button from "../components/Button";
 import styled from "styled-components";
 
 const AddForm = ({ users, onSubmit }) => {
@@ -42,18 +43,18 @@ const AddForm = ({ users, onSubmit }) => {
       <Col sm={6} md={5}>
         <Form onSubmit={e => handleSubmit(e)}>
           <Input
-            id="nickname"
+            id={field_type.NICKNAME}
             placeholder="Enter nickname"
             {...nicknameInput}
           />
           <Input
-            id="email"
+            id={field_type.EMAIL}
             label="E-mail"
             placeholder="Enter e-mail"
             {...emailInput}
           />
           <Input
-            id="ip"
+            id={field_type.IP}
             label="IP address"
             placeholder="Enter IP address"
             {...ipInput}

@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import color from "../shared/colors";
 import { BoldBlueMixin } from "../shared/mixins";
+import { field_type } from "../shared/types";
 
 export const useInput = users => {
   const [inputValue, setValue] = useState("");
@@ -22,12 +23,12 @@ export const useInput = users => {
     if (inputValue.length === 0) {
       setError("Field cannot be empty");
     } else {
-      if (id === "email") {
+      if (id === field_type.EMAIL) {
         const re = /^[\w._-]+[+]?[\w._-]+@[\w.-]+\.[a-zA-Z]{2,6}$/;
 
         if (!re.test(value))
           return setError("Please enter valid e-mail address");
-      } else if (id === "ip") {
+      } else if (id === field_type.IP) {
         const re = /^(([1-9]?\d|1\d\d|2[0-5][0-5]|2[0-4]\d)\.){3}([1-9]?\d|1\d\d|2[0-5][0-5]|2[0-4]\d)$/;
 
         if (!re.test(value)) return setError("Please enter valid IP number");
@@ -35,10 +36,10 @@ export const useInput = users => {
 
       users &&
         users.map(user => {
-          if (id === "nickname" && user.nickname === value) {
+          if (id === field_type.NICKNAME && user.nickname === value) {
             setError("This nickname already exists");
           }
-          if (id === "email" && user.email === value) {
+          if (id === field_type.EMAIL && user.email === value) {
             setError("This e-mail already exists");
           }
           return user;

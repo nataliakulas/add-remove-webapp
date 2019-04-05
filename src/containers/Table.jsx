@@ -4,14 +4,10 @@ import styled from "styled-components";
 
 import color from "../shared/colors";
 import { PanelMixin, BoldBlueMixin } from "../shared/mixins";
+import { sort_type, field_type } from "../shared/types";
 
-import Button, { RoundButton } from "./Button";
-import { P } from "./Fonts";
-
-const sort_type = {
-  ASC: "ASC",
-  DESC: "DESC"
-};
+import Button, { RoundButton } from "../components/Button";
+import { P } from "../components/Fonts";
 
 const UserTable = ({ users, onRemove, onRemoveAll }) => {
   const initialState = { field: "", sort: "" };
@@ -54,7 +50,7 @@ const UserTable = ({ users, onRemove, onRemoveAll }) => {
             <Wrapper>
               <P>Nickname</P>
               <SortButtons
-                field="nickname"
+                field={field_type.NICKNAME}
                 disabled={disabled}
                 onSort={handleSort}
               />
@@ -64,7 +60,7 @@ const UserTable = ({ users, onRemove, onRemoveAll }) => {
             <Wrapper>
               <P>E-mail</P>
               <SortButtons
-                field="email"
+                field={field_type.EMAIL}
                 disabled={disabled}
                 onSort={handleSort}
               />
@@ -73,7 +69,11 @@ const UserTable = ({ users, onRemove, onRemoveAll }) => {
           <Col sm={3}>
             <Wrapper>
               <P>IP address</P>
-              <SortButtons field="ip" disabled={disabled} onSort={handleSort} />
+              <SortButtons
+                field={field_type.IP}
+                disabled={disabled}
+                onSort={handleSort}
+              />
             </Wrapper>
           </Col>
           <Col sm={3} lg={2}>
