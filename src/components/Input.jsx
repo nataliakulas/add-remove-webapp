@@ -9,7 +9,7 @@ export const useInput = () => {
   const [inputError, setError] = useState("");
 
   function handleChange(e) {
-    setValue(e.target.value);
+    setValue(e.target.value.trim());
   }
 
   function handleFocus() {
